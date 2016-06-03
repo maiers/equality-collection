@@ -13,11 +13,11 @@ Set<String> passthrough = new EqualityHashSet<>(
 );
         
 Set<Integer> module = new EqualityHashSet<>(
-  // event number are all equal
+  // even number are all equal
   (a, b) -> {
       return (a % 2 == 0 && b % 2 == 0);
   }, 
-  // event number all have a hashCode of 2
+  // even number all have a hashCode of 2
   a -> {
       return (a % 2 == 0) ? 2 : a;
   }
