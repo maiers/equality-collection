@@ -42,7 +42,7 @@ import java.util.stream.Collectors;
  *
  * @param <T> The type of this sets elements
  */
-public class CustomEqualityHashSet<T> implements Set<T> {
+public class EqualityHashSet<T> implements Set<T> {
 
     /**
      * The function defining equality between elements. If you need to handle 
@@ -76,7 +76,7 @@ public class CustomEqualityHashSet<T> implements Set<T> {
      * @param hash the function defining an elements hashCode. If you need to
      * handle null values, make sure your hash function can handle null as well.
      */
-    public CustomEqualityHashSet(BiFunction<T, T, Boolean> equals, ToIntFunction<T> hash) {
+    public EqualityHashSet(BiFunction<T, T, Boolean> equals, ToIntFunction<T> hash) {
         this.equalsFunction = equals;
         this.hashFunction = hash;
         this.backingSet = new HashSet<>();
@@ -99,7 +99,7 @@ public class CustomEqualityHashSet<T> implements Set<T> {
      * @param hash the function defining an elements hashCode. If you need to
      * handle null values, make sure your hash function can handle null as well.
      */
-    public CustomEqualityHashSet(Collection<T> c, BiFunction<T, T, Boolean> equals, ToIntFunction<T> hash) {
+    public EqualityHashSet(Collection<T> c, BiFunction<T, T, Boolean> equals, ToIntFunction<T> hash) {
         this.equalsFunction = equals;
         this.hashFunction = hash;
         if (c != null) {
@@ -125,7 +125,7 @@ public class CustomEqualityHashSet<T> implements Set<T> {
      * @param hash the function defining an elements hashCode. If you need to
      * handle null values, make sure your hash function can handle null as well.
      */
-    public CustomEqualityHashSet(int initialCapacity, BiFunction<T, T, Boolean> equals, ToIntFunction<T> hash) {
+    public EqualityHashSet(int initialCapacity, BiFunction<T, T, Boolean> equals, ToIntFunction<T> hash) {
         this.equalsFunction = equals;
         this.hashFunction = hash;
         this.backingSet = new HashSet<>(initialCapacity);
@@ -148,7 +148,7 @@ public class CustomEqualityHashSet<T> implements Set<T> {
      * @param hash the function defining an elements hashCode. If you need to
      * handle null values, make sure your hash function can handle null as well.
      */
-    public CustomEqualityHashSet(int initialCapacity, float loadFactor, BiFunction<T, T, Boolean> equals, ToIntFunction<T> hash) {
+    public EqualityHashSet(int initialCapacity, float loadFactor, BiFunction<T, T, Boolean> equals, ToIntFunction<T> hash) {
         this.equalsFunction = equals;
         this.hashFunction = hash;
         this.backingSet = new HashSet<>(initialCapacity, loadFactor);
@@ -244,7 +244,7 @@ public class CustomEqualityHashSet<T> implements Set<T> {
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        CustomEqualityHashSet<T> other = new CustomEqualityHashSet<>(equalsFunction, hashFunction);
+        EqualityHashSet<T> other = new EqualityHashSet<>(equalsFunction, hashFunction);
         c.forEach(i -> {
             try {
                 other.add((T) i);

@@ -23,42 +23,19 @@
  */
 package de.comci.utils.collection.equality;
 
-import java.util.Set;
-import static org.fest.assertions.Assertions.*;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
  *
  * @author Sebastian Maier (sebastian@comci.de)
  */
-public class CustomEqualityHashSetWithFixedFunctionsTest {
-
-    private Set<Integer> instance;
-
-    @Before
-    public void createInstance() {
-        instance = new CustomEqualityHashSet<>((a, b) -> true, a -> 1);
-    }
-    
-    @Test
-    public void shouldAddFirstElement() {
-        assertThat(instance.add(1)).isTrue();
-        assertThat(instance).hasSize(1).containsOnly(1);
-    }
-    
-    @Test
-    public void shouldNotAddAnyMoreElement() {
-        assertThat(instance.add(1)).isTrue();
-        assertThat(instance.add(2)).isFalse();
-        assertThat(instance).hasSize(1).containsOnly(1);
-    }
-    
-    @Test
-    public void shouldRemove() {
-        assertThat(instance.add(1)).isTrue();
-        assertThat(instance.remove(2)).isTrue();
-        assertThat(instance).isEmpty();
-    }
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+    EqualityHashSetWithDefaultFunctionsTest.class,
+    EqualityHashSetWithFixedFunctionsTest.class,
+    EqualityHashSetWithModuleFunctionsText.class
+})
+public class EqualityHashSetTest {
 
 }

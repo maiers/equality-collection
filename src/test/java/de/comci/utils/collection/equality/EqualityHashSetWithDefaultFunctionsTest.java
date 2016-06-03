@@ -37,13 +37,13 @@ import org.junit.Test;
  *
  * @author Sebastian Maier (sebastian@comci.de)
  */
-public class CustomEqualityHashSetWithDefaultFunctionsTest {
+public class EqualityHashSetWithDefaultFunctionsTest {
 
     private Set<Integer> instance;
 
     @Before
     public void createInstance() {
-        instance = new CustomEqualityHashSet<>((a, b) -> Objects.equals(a, b), a -> Objects.hashCode(a));
+        instance = new EqualityHashSet<>((a, b) -> Objects.equals(a, b), a -> Objects.hashCode(a));
     }
 
     @Test
@@ -206,7 +206,7 @@ public class CustomEqualityHashSetWithDefaultFunctionsTest {
     @Test
     public void shouldWorkForFIxedEqualsAndHash() {
 
-        CustomEqualityHashSet<Integer> i = new CustomEqualityHashSet<>((a, b) -> true, a -> 1);
+        EqualityHashSet<Integer> i = new EqualityHashSet<>((a, b) -> true, a -> 1);
 
         assertThat(i.add(1)).isTrue();
         assertThat(i).hasSize(1);
@@ -225,7 +225,7 @@ public class CustomEqualityHashSetWithDefaultFunctionsTest {
     @Test
     public void shouldWorkForSomeMoreElaborateFunction() {
 
-        CustomEqualityHashSet<Integer> i = new CustomEqualityHashSet<>((a, b) -> {
+        EqualityHashSet<Integer> i = new EqualityHashSet<>((a, b) -> {
             return (a % 2 == 0 && b % 2 == 0);
         }, a -> {
             return (a % 2 == 0) ? 2 : a;
@@ -251,7 +251,7 @@ public class CustomEqualityHashSetWithDefaultFunctionsTest {
     @Test
     public void shouldWorkForInitialElements() {
 
-        CustomEqualityHashSet<Integer> i = new CustomEqualityHashSet<>(Arrays.asList(1, 2, 3, 4, 5, 6), (a, b) -> {
+        EqualityHashSet<Integer> i = new EqualityHashSet<>(Arrays.asList(1, 2, 3, 4, 5, 6), (a, b) -> {
             return (a % 2 == 0 && b % 2 == 0);
         }, a -> {
             return (a % 2 == 0) ? 2 : a;

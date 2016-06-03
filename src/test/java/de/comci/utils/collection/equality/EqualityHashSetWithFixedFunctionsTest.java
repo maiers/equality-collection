@@ -23,58 +23,42 @@
  */
 package de.comci.utils.collection.equality;
 
-import java.util.Arrays;
 import java.util.Set;
+import static org.fest.assertions.Assertions.*;
 import org.junit.Before;
 import org.junit.Test;
-import static org.fest.assertions.Assertions.*;
 
 /**
  *
  * @author Sebastian Maier (sebastian@comci.de)
  */
-public class CustomEqualityHashSetWithModuleFunctionsText {
+public class EqualityHashSetWithFixedFunctionsTest {
 
     private Set<Integer> instance;
 
     @Before
     public void createInstance() {
-        instance = new CustomEqualityHashSet<>((a, b) -> {
-            return (a % 2 == 0 && b % 2 == 0);
-        }, a -> {
-            return (a % 2 == 0) ? 2 : a;
-        });
+        instance = new EqualityHashSet<>((a, b) -> true, a -> 1);
     }
-
+    
     @Test
-    public void shouldAddMultipleUnevenElements() {
+    public void shouldAddFirstElement() {
         assertThat(instance.add(1)).isTrue();
         assertThat(instance).hasSize(1).containsOnly(1);
-        assertThat(instance.add(3)).isTrue();
-        assertThat(instance).hasSize(2).containsOnly(1, 3);
-        assertThat(instance.addAll(Arrays.asList(5, 7, 9, 11))).isTrue();
-        assertThat(instance).hasSize(6).containsOnly(1, 3, 5, 7, 9, 11);
     }
-
+    
     @Test
-    public void shouldAddOnlyOneEvenElement() {
-        assertThat(instance.add(2)).isTrue();
-        assertThat(instance.add(4)).isFalse();
-        assertThat(instance).hasSize(1).containsOnly(2);
-        assertThat(instance.addAll(Arrays.asList(6, 8, 10, 12))).isFalse();
-        assertThat(instance).hasSize(1).containsOnly(2);
+    public void shouldNotAddAnyMoreElement() {
+        assertThat(instance.add(1)).isTrue();
+        assertThat(instance.add(2)).isFalse();
+        assertThat(instance).hasSize(1).containsOnly(1);
     }
-
+    
     @Test
-    public void shouldWorkForInitialElements() {
-
-        instance = new CustomEqualityHashSet<>(Arrays.asList(1, 2, 3, 4, 5, 6), (a, b) -> {
-            return (a % 2 == 0 && b % 2 == 0);
-        }, a -> {
-            return (a % 2 == 0) ? 2 : a;
-        });
-
-        assertThat(instance).hasSize(4).contains(1, 2, 3, 5);
+    public void shouldRemove() {
+        assertThat(instance.add(1)).isTrue();
+        assertThat(instance.remove(2)).isTrue();
+        assertThat(instance).isEmpty();
     }
 
 }
