@@ -23,3 +23,7 @@ Set<Integer> module = new EqualityHashSet<>(
   }
 );
 ````
+
+## License
+
+The MIT License (MIT)
